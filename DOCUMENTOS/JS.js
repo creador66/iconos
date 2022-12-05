@@ -1,5 +1,5 @@
-pagina_1()
 cargaPro()
+pagina_1()
 /*__________________________________________*/	
 function cargaPro(){
 let url ="https://creador66.github.io/iconos/array.json";
