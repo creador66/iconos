@@ -2,7 +2,7 @@ pagina_1()
 cargaPro()
 /*__________________________________________*/	
 function cargaPro(){
-let url ="https://script.google.com/macros/s/AKfycbwxRMt7ioudXWfbCi37lm4HT0y8pn9r1jFTveLhU_NOG0u4TICIEqYwlMI1J-33MLo/exec";
+let url ="https://creador66.github.io/iconos/array.json";
 fetch(url)
 .then( response => response.json() )
 .then( data => mostrarData(data) )
