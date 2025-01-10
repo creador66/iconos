@@ -1,79 +1,212 @@
-
-
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="iconos/css/all.css">
-    <link rel="stylesheet" href="DOCUMENTOS/CSS.css">
-  </head>
-  <body>
-<section class="section1">
+<html lang="es">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cinzel&family=Impact&family=Lobster&family=Oswald&family=Playfair+Display&family=Raleway&family=Rockwell&display=swap" rel="stylesheet">
+ <title>Slider Automático con Animaciones Personalizadas</title>
+ <style>
+  * {
+   -webkit-tap-highlight-color: transparent;
+   box-sizing: border-box;
+   margin: 0;
+   /* Aseguramos que no haya márgenes predeterminados */
+   padding: 0;
+   /* Aseguramos que no haya rellenos */
+  }
+
+  html,
+  body {
+   margin: 0;
+   padding: 0;
+   font-family: Arial, sans-serif;
+   height: 100%;
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #f0f0f0;
+   overflow: hidden;
+  }
+
+  .slider {
+   width: 100%;
+   height: 100%;
+   position: relative;
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+   background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1MVRReoHXNUl2QP5tZrBlOO_wztv9xrmYwqkZJihiFm90M1gNXKBp12Wa&s=10');
+   background-size: cover;
+   background-position: center;
+  }
 
 
-  <h1>CodigoTrue</h1>
-</section>
-<section class="section2">
+  .imagen {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   opacity: 0;
+   transition: opacity 1s ease-in-out;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   overflow: hidden;
+  }
+
+  .imagen img {
+   position: absolute;
+  }
+
+  .image-slide1 {
+   top: 5px;
+
+   width: 30%;
+   height: 15%;
+   z-index: 1;
+   border-radius: 10%;
+  }
+
+  
 
 
-<div class="marjen crece">
-<div class="form sidebar">
-<input id="txtBusqueda" type="text" placeholder="Codigo_Search" onkeyup="Buscar();">
-<h4>El buscador encuentra coincidencias por cada página, presionar la página que sigue si no encuentras lo que buscas</h4>
-<input type="hidden" name="id" id="id">
-<div class="menu-opciones">
-<button class="nav__link active" onclick="pagina_1();;">pagina 1</button>
-<button class="nav__link" onclick="pagina_2();">pagina 2</button>
-<button class="nav__link" onclick="pagina_3()">pagina 3</button>
-<button class="nav__link" onclick="pagina_4()">pagina 4</button>
-<button class="nav__link" onclick="pagina_5()">pagina 5</button>
-<button class="nav__link" onclick="pagina_6()">pagina 6</button>
-<button class="nav__link" onclick="pagina_7()">pagina 7</button>
-<button class="nav__link" onclick="pagina_8()">pagina 8</button>
-<button class="nav__link" onclick="pagina_9()">pagina 9</button>
-<button class="nav__link" onclick="pagina_10()">pagina 10</button>
-<button class="nav__link" onclick="pagina_11();">pagina 11</button>
-<button class="nav__link" onclick="pagina_12();">pagina 12</button>
-<button class="nav__link" onclick="pagina_13()">pagina 13</button>
-<button class="nav__link" onclick="pagina_14()">pagina 14</button>
-<button class="nav__link" onclick="pagina_15()">pagina 15</button>
-<button class="nav__link" onclick="pagina_16()">pagina 16</button>
-<button class="nav__link" onclick="pagina_17()">pagina 17</button>
-<button class="nav__link" onclick="pagina_18()">pagina 18</button>
-<button class="nav__link" onclick="pagina_19()">pagina 19</button>
-<button class="nav__link" onclick="pagina_20()">pagina 20</button>
+  .marco {
+   position: absolute;
+   bottom: 10px;
+   /* Pegado a la parte inferior */
+   left: 50%;
+   /* Centrado horizontalmente */
+   z-index: 3;
+   width: 90%;
+   height: 70%;
+   transform: translateX(-50%) rotate(5deg);
+   /* Ajusta para centrar y rotar */
+   border: 3px solid rgba(0, 0, 0, 0.3);
+   /* Borde del marco */
 
-<div class="link">  
-  <a href="https://fontawesome.com" target="_blank">fontawesome<i class="fa-brands fa-square-font-awesome"></i></a>
-  <a href="https://use.fontawesome.com/releases/v6.2.1/fontawesome-free-6.2.1-web.zip" target="_blank">descarga los iconos<i class="fa-solid fa-download"></i></a>
-  </div>
+   overflow: hidden;
+   /* Ocultar cualquier parte de la imagen fuera del div */
+  }
+
+  .marco img {
+   width: 100%;
+   height: 100%;
+
+   transition: transform 0.3s ease-in-out;
+   /* Agregar una transición suave al movimiento */
+  }
+
+  .cinzel {
+   z-index: 4;
+   font-family: 'Cinzel', serif;
+   color: #FF8C00;
+   position: absolute;
+   top: 15%;
+   font-size: 10vw;
+   max-width: 90%;
+
+  }
+
+  .imagen.active {
+   opacity: 1;
+  }
+
+  .imagen.previous {
+   opacity: 0;
+  }
+ </style>
+</head>
+
+<body>
+ <div class="slider" id="slider"></div>
+
+ <script>
+  const urlAppScript = "https://script.google.com/macros/s/AKfycby4vUeQPYfB_dpIVVGrycuBM0ubgU0DBmR2Lecn22yyQtxW2tEfOHDzPJkYVghaEoYG/exec";
+
+  function obtenerYSincronizarImagenes() {
+   const formData = new FormData();
+   formData.append('operacion', 'obtenerImagenes');
+
+   const actualizarLocalStorage = (clave, nuevosDatos, callbackMostrar) => {
+    const datosGuardados = JSON.parse(localStorage.getItem(clave)) || [];
+
+    // Comparar individualmente cada imagen
+    const hayCambios = nuevosDatos.some((nuevaImagen, index) => {
+     const imagenGuardada = datosGuardados[index];
+     return !imagenGuardada ||
+      nuevaImagen.url1 !== imagenGuardada.url1 ||
+      nuevaImagen.url2 !== imagenGuardada.url2 ||
+      nuevaImagen.url3 !== imagenGuardada.url3 ||
+      nuevaImagen.descripcion !== imagenGuardada.descripcion;
+    });
+
+    if (hayCambios) {
+     localStorage.setItem(clave, JSON.stringify(nuevosDatos));
+     callbackMostrar(nuevosDatos);
+     console.log(`${clave} actualizados en localStorage.`);
+    } else {
+     console.log(`No hubo cambios en ${clave}.`);
+    }
+   };
+
+   const imagenesGuardadas = JSON.parse(localStorage.getItem('imagenes')) || [];
+   mostrarImagenes(imagenesGuardadas);
+
+   fetch(urlAppScript, {
+     method: 'POST',
+     body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+     const imagenesOrdenadas = data.sort((a, b) => a.codigo.localeCompare(b.codigo));
+     actualizarLocalStorage('imagenes', imagenesOrdenadas, mostrarImagenes);
+    })
+    .catch(error => {
+     console.error('Error al obtener las imágenes del servidor:', error);
+    });
+  }
+
+  function mostrarImagenes(imagenesGuardadas) {
+   console.log("Datos de imágenes guardadas:", JSON.stringify(imagenesGuardadas, null, 2));
+   const slider = document.getElementById("slider");
+
+   slider.innerHTML = ''; // Limpiar el contenido previo
+
+   imagenesGuardadas.forEach((img) => {
+    slider.innerHTML += `
+        <div class="imagen">
+          <h1 class="cinzel">${img.descripcion || 'Descripción no disponible'}</h1>
+          <img src="${img.url1}" class="image-slide1">
+<div class="marco">
+ <img src="${img.url3}">
 
 </div>
-<h4>head <i class="fa-regular fa-paste"></i> /head</h4>
-<button class="bt-1" onclick="copy('readonly')"><textarea readonly="readonly" id="readonly"  cols="35" rows="1"><link rel="stylesheet" href="iconos/css/all.css"></textarea>
-</button>
-</div>
-</div>
-<div>
-<table id="myTable" class="marjen telefono" >
-<tbody class="con-icon" id="table">
-</tbody>   
-</table>
-<ul class="pagination pagination-lg pager" id="myPager"></ul>
-</div>
+        </div>
+      `;
+   });
 
-<div>
-  <table>
-  <tbody class="con-icon" id="correr_productos">
-  </tbody>   
-  </table>
-  </div>
-</section>
- <script src="DOCUMENTOS/JS.js"></script>
- <script src="array.json"></script>
+   const images = slider.querySelectorAll(".imagen");
+   let index = 0;
+
+   if (images.length > 0) {
+    images[index].classList.add("active");
+
+    const changeSlide = () => {
+     images[index].classList.remove("active");
+     images[index].classList.add("previous");
+     index = (index + 1) % images.length;
+     images[index].classList.remove("previous");
+     images[index].classList.add("active");
+    };
+
+    setInterval(changeSlide, 10000); // Cambiar la imagen cada 3 segundos
+   }
+  }
+
+  obtenerYSincronizarImagenes();
+ </script>
+
 </body>
+
 </html>
-<script>
