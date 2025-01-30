@@ -13,6 +13,7 @@
             height: 100vh;
             background-color: #f4f4f4;
             margin: 0;
+            flex-direction: column;
         }
         .container {
             background: white;
@@ -21,7 +22,13 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             text-align: center;
             width: 90%;
-            max-width: 400px;
+            max-width: 320px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #D72638; /* Rojo fuerte */
         }
         h2 {
             margin-bottom: 20px;
@@ -40,9 +47,6 @@
         .info:active {
             background: #ccc;
         }
-        .info-text {
-            font-weight: bold;
-        }
         .instructions {
             font-size: 14px;
             margin: 20px 0;
@@ -52,6 +56,7 @@
 </head>
 <body>
 
+<div class="logo">Las BRAVA'S</div> <!-- Logo en texto -->
 <div class="container">
     <h2>Información Bancaria</h2>
     <div class="instructions">
@@ -62,17 +67,19 @@
         </ol>
     </div>
     
-    <div class="info" id="cuenta" onclick="copiarAlPortapapeles('cuenta')">
-        <span class="info-text">Cuenta:</span> 1234 5678 9012 3456
+    <div class="info" onclick="copiarAlPortapapeles('Citibanamex')">
+        <strong>Banco:</strong> Citibanamex
     </div>
-    <div class="info" id="titular" onclick="copiarAlPortapapeles('titular')">
-        <span class="info-text">Titular:</span> Maria de Lourdes Garrido Peralta
+    <div class="info" onclick="copiarAlPortapapeles('5204 1661 0177 5692')">
+        <strong>Cuenta:</strong> 5204 1661 0177 5692
+    </div>
+    <div class="info" onclick="copiarAlPortapapeles('Maria de Lourdes Garrido Peralta')">
+        <strong>Titular:</strong> Maria de Lourdes Garrido Peralta
     </div>
 </div>
 
 <script>
-    function copiarAlPortapapeles(id) {
-        var texto = document.getElementById(id).innerText;
+    function copiarAlPortapapeles(texto) {
         var areaTexto = document.createElement("textarea");
         areaTexto.value = texto;
         document.body.appendChild(areaTexto);
