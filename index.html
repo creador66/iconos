@@ -3,93 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Información Bancaria</title>
+    <title>Datos Bancarios Citibanamex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #1a237e;
+            --secondary: #ffd700;
+            --background: #f8f9fa;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
+            min-height: 100vh;
             margin: 0;
-            flex-direction: column;
-        }
-        .container {
-            background: white;
+            background: var(--background);
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 90%;
-            max-width: 320px;
         }
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #D72638; /* Rojo fuerte */
+
+        .contenedor {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            border: 2px solid var(--primary);
         }
-        h2 {
-            margin-bottom: 20px;
-        }
+
         .info {
-            background: #eee;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid var(--secondary);
+            background: #f8f9fa;
+            border-radius: 8px;
             cursor: pointer;
-            user-select: none;
+            transition: all 0.3s ease;
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
+
         .info:hover {
-            background: #ddd;
+            transform: translateX(10px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
-        .info:active {
-            background: #ccc;
+
+        .info strong {
+            color: var(--primary);
+            min-width: 70px;
+            display: inline-block;
         }
-        .instructions {
-            font-size: 14px;
-            margin: 20px 0;
-            color: #555;
+
+        .info:hover strong {
+            color: #0d47a1;
+        }
+
+        .notificacion {
+            position: fixed;
+            top: 25px;
+            right: -100%;
+            background: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: right 0.5s ease;
+        }
+
+        .notificacion.mostrar {
+            right: 25px;
+        }
+
+        @media (max-width: 480px) {
+            .contenedor {
+                padding: 20px;
+            }
+            
+            .info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="contenedor">
+        <h2 style="color: var(--primary); text-align: center; margin-bottom: 30px;">
+            🏦 Datos Bancarios Citibanamex
+        </h2>
 
-<div class="logo">Las BRAVA'S</div> <!-- Logo en texto -->
-<div class="container">
-    <h2>Información Bancaria</h2>
-    <div class="instructions">
-        <p><strong>Pasos:</strong></p>
-        <ol>
-            <li>Haz clic sobre la información que deseas copiar.</li>
-            <li>La información será copiada automáticamente al portapapeles.</li>
-        </ol>
-    </div>
-    
-    <div class="info" onclick="copiarAlPortapapeles('Citibanamex')">
-        <strong>Banco:</strong> Citibanamex
-    </div>
-    <div class="info" onclick="copiarAlPortapapeles('5204 1661 0177 5692')">
-        <strong>Cuenta:</strong> 5204 1661 0177 5692
-    </div>
-    <div class="info" onclick="copiarAlPortapapeles('Maria de Lourdes Garrido Peralta')">
-        <strong>Titular:</strong> Maria de Lourdes Garrido Peralta
-    </div>
-</div>
+        <div class="info" onclick="copiarAlPortapapeles('Citibanamex')">
+            <strong>Banco:</strong> Citibanamex
+        </div>
 
-<script>
-    function copiarAlPortapapeles(texto) {
-        var areaTexto = document.createElement("textarea");
-        areaTexto.value = texto;
-        document.body.appendChild(areaTexto);
-        areaTexto.select();
-        document.execCommand("copy");
-        document.body.removeChild(areaTexto);
+        <div class="info" onclick="copiarAlPortapapeles('5204 1661 0177 5692')">
+            <strong>Cuenta:</strong> 5204 1661 0177 5692
+        </div>
 
-        alert("¡Información copiada al portapapeles!");
-    }
-</script>
+        <div class="info" onclick="copiarAlPortapapeles('Maria de Lourdes Garrido Peralta')">
+            <strong>Titular:</strong> Maria de Lourdes Garrido Peralta
+        </div>
 
+        <p style="color: #666; font-size: 0.9em; text-align: center; margin-top: 25px;">
+            ⚠️ Información sensible - Verificar antes de transferir
+        </p>
+    </div>
+
+    <script>
+        function copiarAlPortapapeles(texto) {
+            navigator.clipboard.writeText(texto)
+                .then(() => mostrarNotificacion('Copiado: ' + texto))
+                .catch(err => console.error('Error al copiar:', err));
+        }
+
+        function mostrarNotificacion(mensaje) {
+            const notificacion = document.createElement('div');
+            notificacion.className = 'notificacion';
+            notificacion.textContent = mensaje;
+            
+            document.body.appendChild(notificacion);
+            setTimeout(() => notificacion.classList.add('mostrar'), 100);
+            setTimeout(() => {
+                notificacion.classList.remove('mostrar');
+                setTimeout(() => notificacion.remove(), 500);
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
