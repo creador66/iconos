@@ -1,215 +1,88 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cinzel&family=Impact&family=Lobster&family=Oswald&family=Playfair+Display&family=Raleway&family=Rockwell&display=swap" rel="stylesheet">
- <title>Slider Automático con Animaciones Personalizadas</title>
- <style>
-  * {
-   -webkit-tap-highlight-color: transparent;
-   box-sizing: border-box;
-   margin: 0;
-   /* Aseguramos que no haya márgenes predeterminados */
-   padding: 0;
-   /* Aseguramos que no haya rellenos */
-  }
-
-  html,
-  body {
-   margin: 0;
-   padding: 0;
-   font-family: Arial, sans-serif;
-   height: 100%;
-   width: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   background-color: #f0f0f0;
-   overflow: hidden;
-  }
-
-  .slider {
-   width: 60%;
-   height: 100%;
-   position: relative;
-   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-   background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1MVRReoHXNUl2QP5tZrBlOO_wztv9xrmYwqkZJihiFm90M1gNXKBp12Wa&s=10');
-   background-size: cover;
-   background-position: center;
-  }
-
-
-  .imagen {
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   opacity: 0;
-   transition: opacity 1s ease-in-out;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   overflow: hidden;
-  }
-
-  .imagen img {
-   position: absolute;
-  }
-
-  .image-slide1 {
-   top: 5px;
-
-   width: 30%;
-   height: 15%;
-   z-index: 1;
-   border-radius: 10%;
-  }
-
-  
-
-
-  .marco {
-   position: absolute;
-   bottom: 10px;
-   /* Pegado a la parte inferior */
-   left: 50%;
-   /* Centrado horizontalmente */
-   z-index: 3;
-   width: 90%;
-   height: 70%;
-   transform: translateX(-50%) rotate(5deg);
-   /* Ajusta para centrar y rotar */
-   border: 3px solid rgba(0, 0, 0, 0.3);
-   /* Borde del marco */
-
-   overflow: hidden;
-   margin: auto;
-   /* Ocultar cualquier parte de la imagen fuera del div */
-  }
-
-  .marco img {
-   left: 0;
-   z-index: 3;
-   width: 100%;
-   height: 100%;
-   transition: transform 0.3s ease-in-out;
-   /* Agregar una transición suave al movimiento */
-  }
-  .cinzel {
-   z-index: 4;
-   font-family: 'Cinzel', serif;
-   color: #FF8C00;
-   position: absolute;
-   top: 15%;
-   font-size: 9vw;
-   max-width: 95%;
-
-  }
-
-
-  .imagen.active {
-   opacity: 1;
-  }
-
-  .imagen.previous {
-   opacity: 0;
-  }
-  
- </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información Bancaria</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .info {
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            cursor: pointer;
+            user-select: none;
+        }
+        .info:hover {
+            background: #ddd;
+        }
+        .info:active {
+            background: #ccc;
+        }
+        .info-text {
+            font-weight: bold;
+        }
+        .instructions {
+            font-size: 14px;
+            margin: 20px 0;
+            color: #555;
+        }
+    </style>
 </head>
-
 <body>
- <div class="slider" id="slider"></div>
 
- <script>
-  const urlAppScript = "https://script.google.com/macros/s/AKfycby4vUeQPYfB_dpIVVGrycuBM0ubgU0DBmR2Lecn22yyQtxW2tEfOHDzPJkYVghaEoYG/exec";
-
-  function obtenerYSincronizarImagenes() {
-   const formData = new FormData();
-   formData.append('operacion', 'obtenerImagenes');
-
-   const actualizarLocalStorage = (clave, nuevosDatos, callbackMostrar) => {
-    const datosGuardados = JSON.parse(localStorage.getItem(clave)) || [];
-
-    // Comparar individualmente cada imagen
-    const hayCambios = nuevosDatos.some((nuevaImagen, index) => {
-     const imagenGuardada = datosGuardados[index];
-     return !imagenGuardada ||
-      nuevaImagen.url1 !== imagenGuardada.url1 ||
-      nuevaImagen.url2 !== imagenGuardada.url2 ||
-      nuevaImagen.url3 !== imagenGuardada.url3 ||
-      nuevaImagen.descripcion !== imagenGuardada.descripcion;
-    });
-
-    if (hayCambios) {
-     localStorage.setItem(clave, JSON.stringify(nuevosDatos));
-     callbackMostrar(nuevosDatos);
-     console.log(`${clave} actualizados en localStorage.`);
-    } else {
-     console.log(`No hubo cambios en ${clave}.`);
-    }
-   };
-
-   const imagenesGuardadas = JSON.parse(localStorage.getItem('imagenes')) || [];
-   mostrarImagenes(imagenesGuardadas);
-
-   fetch(urlAppScript, {
-     method: 'POST',
-     body: formData,
-    })
-    .then(response => response.json())
-    .then(data => {
-     const imagenesOrdenadas = data.sort((a, b) => a.codigo.localeCompare(b.codigo));
-     actualizarLocalStorage('imagenes', imagenesOrdenadas, mostrarImagenes);
-    })
-    .catch(error => {
-     console.error('Error al obtener las imágenes del servidor:', error);
-    });
-  }
-
-  function mostrarImagenes(imagenesGuardadas) {
-   console.log("Datos de imágenes guardadas:", JSON.stringify(imagenesGuardadas, null, 2));
-   const slider = document.getElementById("slider");
-
-   slider.innerHTML = ''; // Limpiar el contenido previo
-
-   imagenesGuardadas.forEach((img) => {
-    slider.innerHTML += `
-        <div class="imagen">
-       <h1 class="cinzel">${img.descripcion || 'LAS BRAVAS'}</h1>
-          <img src="${img.url1}" class="image-slide1">
-<div class="marco">
- <img src="${img.url3}">
+<div class="container">
+    <h2>Información Bancaria</h2>
+    <div class="instructions">
+        <p><strong>Pasos:</strong></p>
+        <ol>
+            <li>Haz clic sobre la información que deseas copiar.</li>
+            <li>La información será copiada automáticamente al portapapeles.</li>
+        </ol>
+    </div>
+    
+    <div class="info" id="cuenta" onclick="copiarAlPortapapeles('cuenta')">
+        <span class="info-text">Cuenta:</span> 1234 5678 9012 3456
+    </div>
+    <div class="info" id="titular" onclick="copiarAlPortapapeles('titular')">
+        <span class="info-text">Titular:</span> Maria de Lourdes Garrido Peralta
+    </div>
 </div>
 
-        </div>
-      `;
-   });
+<script>
+    function copiarAlPortapapeles(id) {
+        var texto = document.getElementById(id).innerText;
+        var areaTexto = document.createElement("textarea");
+        areaTexto.value = texto;
+        document.body.appendChild(areaTexto);
+        areaTexto.select();
+        document.execCommand("copy");
+        document.body.removeChild(areaTexto);
 
-   const images = slider.querySelectorAll(".imagen");
-   let index = 0;
-
-   if (images.length > 0) {
-    images[index].classList.add("active");
-
-    const changeSlide = () => {
-     images[index].classList.remove("active");
-     images[index].classList.add("previous");
-     index = (index + 1) % images.length;
-     images[index].classList.remove("previous");
-     images[index].classList.add("active");
-    };
-
-    setInterval(changeSlide, 10000); // Cambiar la imagen cada 3 segundos
-   }
-  }
-
-  obtenerYSincronizarImagenes();
- </script>
+        alert("¡Información copiada al portapapeles!");
+    }
+</script>
 
 </body>
-
 </html>
