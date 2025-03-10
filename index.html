@@ -1,136 +1,259 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datos Bancarios Citibanamex</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #1a237e;
-            --secondary: #ffd700;
-            --background: #f8f9fa;
-        }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: var(--background);
-            padding: 20px;
-        }
-
-        .contenedor {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 500px;
-            border: 2px solid var(--primary);
-        }
-
-        .info {
-            padding: 20px;
-            margin: 15px 0;
-            border-left: 4px solid var(--secondary);
-            background: #f8f9fa;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .info:hover {
-            transform: translateX(10px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        .info strong {
-            color: var(--primary);
-            min-width: 70px;
-            display: inline-block;
-        }
-
-        .info:hover strong {
-            color: #0d47a1;
-        }
-
-        .notificacion {
-            position: fixed;
-            top: 25px;
-            right: -100%;
-            background: #4CAF50;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: right 0.5s ease;
-        }
-
-        .notificacion.mostrar {
-            right: 25px;
-        }
-
-        @media (max-width: 480px) {
-            .contenedor {
-                padding: 20px;
-            }
-            
-            .info {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datos Bancarios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a237e;
+      --secondary: #ffd700;
+      --background: #f8f9fa;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: var(--background);
+      padding: 20px;
+    }
+    .contenedor {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+      border: 2px solid var(--primary);
+    }
+    /* Instrucciones */
+    #instrucciones {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1em;
+      color: #333;
+    }
+    /* Botones para seleccionar banco */
+    #bancoSelector {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .copel{
+     background: yellow;
+      color: #000000;
+      border: none;
+      padding: 12px 20px;
+      margin: 0 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+      font-size: 1.1em;
+    }
+    .btn-seleccion{
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      margin: 0 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+      font-size: 1.1em;
+    }
+    .btn-seleccion:hover {
+      background: #0d47a1;
+      transform: scale(1.05);
+    }
+    .btn-seleccion.activo {
+      background: #0d47a1;
+    }
+    /* Estilos para la información */
+    .info {
+      padding: 10px;
+      margin: 20px 0;
+      border-left: 4px solid var(--secondary);
+      background: #f8f9fa;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+    .info:hover {
+      transform: translateX(10px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .info strong {
+      color: var(--primary);
+      min-width: 70px;
+      display: inline-block;
+    }
+    .btn-copiar {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .btn-copiar:hover {
+      background: #0d47a1;
+    }
+    .notificacion {
+      position: fixed;
+      top: 25px;
+      right: -100%;
+      background: #4CAF50;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: right 0.5s ease;
+    }
+    .notificacion.mostrar {
+      right: 25px;
+    }
+    @media (max-width: 480px) {
+      .contenedor {
+        padding: 20px;
+      }
+      .info {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .btn-copiar {
+        margin-top: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="contenedor">
-        <h2 style="color: var(--primary); text-align: center; margin-bottom: 30px;">
-            🏦 Datos Bancarios Citibanamex
-        </h2>
-
-        <div class="info" onclick="copiarAlPortapapeles('Citibanamex')">
-            <strong>Banco:</strong> Citibanamex
-        </div>
-
-        <div class="info" onclick="copiarAlPortapapeles('5204 1661 0177 5692')">
-            <strong>Cuenta:</strong> 5204 1661 0177 5692
-        </div>
-
-        <div class="info" onclick="copiarAlPortapapeles('Maria de Lourdes Garrido Peralta')">
-            <strong>Titular:</strong> Maria de Lourdes Garrido Peralta
-        </div>
-
-        <p style="color: #666; font-size: 0.9em; text-align: center; margin-top: 25px;">
-            ⚠️ Información sensible - Verificar antes de transferir
-        </p>
+  <div class="contenedor">
+    <!-- Instrucciones para el usuario -->
+    <div id="instrucciones">
+      <p>Selecciona el banco con el que deseas realizar la transferencia.</p>
     </div>
 
-    <script>
-        function copiarAlPortapapeles(texto) {
-            navigator.clipboard.writeText(texto)
-                .then(() => mostrarNotificacion('Copiado: ' + texto))
-                .catch(err => console.error('Error al copiar:', err));
-        }
+    <!-- Selector de bancos -->
+    <div id="bancoSelector">
+      <button class="btn-seleccion activo" onclick="seleccionarBanco('BBVA')">BBVA</button>
+      <button class="copel" onclick="seleccionarBanco('Coppel')">Coppel</button>
+    </div>
 
-        function mostrarNotificacion(mensaje) {
-            const notificacion = document.createElement('div');
-            notificacion.className = 'notificacion';
-            notificacion.textContent = mensaje;
-            
-            document.body.appendChild(notificacion);
-            setTimeout(() => notificacion.classList.add('mostrar'), 100);
-            setTimeout(() => {
-                notificacion.classList.remove('mostrar');
-                setTimeout(() => notificacion.remove(), 500);
-            }, 2000);
-        }
-    </script>
+    <h2 id="headingBanco" style="color: var(--primary); text-align: center; margin-bottom: 30px;">
+      🏦 Datos Bancarios BBVA
+    </h2>
+
+    <!-- Información específica del banco -->
+    <div id="cuentaBanco">
+      <div class="info">
+        <div>
+          <strong>Banco:</strong> <span class="valor" id="bancoNombre">BBVA</span>
+        </div>
+        <button onclick="copiarAlPortapapeles(document.getElementById('bancoNombre'))" class="btn-copiar">Copiar</button>
+      </div>
+
+      <div class="info">
+        <div>
+          <strong>Cuenta:</strong> <span class="valor" id="cuentaNumero">4152 3140 4421 6003</span>
+        </div>
+        <button onclick="copiarAlPortapapeles(document.getElementById('cuentaNumero'))" class="btn-copiar">Copiar</button>
+      </div>
+    </div>
+
+    <!-- Información común -->
+    <div class="info">
+      <div>
+        <strong>Titular:</strong> <span class="valor" id="titular">Andry Mallely Martínez García</span>
+      </div>
+      <button onclick="copiarAlPortapapeles(document.getElementById('titular'))" class="btn-copiar">Copiar</button>
+    </div>
+
+    <div class="info">
+      <div>
+        <strong>Teléfono:</strong> <span class="valor" id="telefono">938 184 4237</span>
+      </div>
+      <button onclick="copiarAlPortapapeles(document.getElementById('telefono'))" class="btn-copiar">Copiar</button>
+    </div>
+
+    <p style="color: #666; font-size: 0.9em; text-align: center; margin-top: 25px;">
+      ⚠️ Información sensible - Verificar antes de transferir
+    </p>
+
+    <div style="margin-top: 30px; text-align: center;">
+      <p style="font-weight: 500;">Después de realizar la transferencia, envía tu comprobante de pago a través de WhatsApp al número anterior.</p>
+      <a id="enviarComprobante" href="#" target="_blank" class="btn-copiar" style="text-decoration: none; display: inline-block; margin-top: 10px;">
+        Enviar Comprobante
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Datos de cada banco
+    const bancos = {
+      "BBVA": {
+        banco: "BBVA",
+        cuenta: "4152 3140 4421 6003"
+      },
+      "Coppel": {
+        banco: "Coppel",
+        cuenta: "4169 1608 2591 2943"  // Reemplaza por la cuenta real de Coppel
+      }
+    };
+
+    // Función para actualizar la información del banco seleccionado
+    function seleccionarBanco(bancoSeleccionado) {
+      const datos = bancos[bancoSeleccionado];
+      document.getElementById('bancoNombre').textContent = datos.banco;
+      document.getElementById('cuentaNumero').textContent = datos.cuenta;
+      document.getElementById('headingBanco').textContent = `🏦 Datos Bancarios ${datos.banco}`;
+
+      // Actualiza visualmente el botón activo
+      const botones = document.querySelectorAll('.btn-seleccion');
+      botones.forEach(btn => btn.classList.remove('activo'));
+      botones.forEach(btn => {
+         if (btn.textContent.trim() === bancoSeleccionado) {
+            btn.classList.add('activo');
+         }
+      });
+    }
+
+    // Función para copiar el contenido del elemento al portapapeles
+    function copiarAlPortapapeles(elemento) {
+      const valor = elemento.textContent;
+      navigator.clipboard.writeText(valor)
+        .then(() => mostrarNotificacion('Copiado: ' + valor))
+        .catch(err => console.error('Error al copiar:', err));
+    }
+
+    // Función para mostrar notificaciones
+    function mostrarNotificacion(mensaje) {
+      const notificacion = document.createElement('div');
+      notificacion.className = 'notificacion';
+      notificacion.textContent = mensaje;
+      
+      document.body.appendChild(notificacion);
+      setTimeout(() => notificacion.classList.add('mostrar'), 100);
+      setTimeout(() => {
+        notificacion.classList.remove('mostrar');
+        setTimeout(() => notificacion.remove(), 500);
+      }, 2000);
+    }
+    
+    // Actualiza el enlace de WhatsApp utilizando el número definido en el <span id="telefono">
+    document.addEventListener('DOMContentLoaded', function() {
+      const telefono = document.getElementById('telefono').textContent.trim();
+      const telefonoLimpio = telefono.replace(/\D/g, '');
+      const numeroCompleto = telefonoLimpio.startsWith("52") ? telefonoLimpio : "52" + telefonoLimpio;
+      const mensaje = encodeURIComponent('Hola, ya realicé la transferencia. Adjunto el comprobante.');
+      const enlace = document.getElementById('enviarComprobante');
+      enlace.href = `https://wa.me/${numeroCompleto}?text=${mensaje}`;
+    });
+  </script>
 </body>
 </html>
