@@ -203,18 +203,41 @@
       overflow: hidden;
       max-width: 100%;
       margin: 1rem auto;
+      touch-action: pan-y;
     }
     .slider-container {
       display: flex;
       transition: transform 0.5s ease-in-out;
     }
     .slide {
+      position: relative;
       min-width: 100%;
       box-sizing: border-box;
     }
     .slide img {
       width: 100%;
+      height: 100%;
       display: block;
+    }
+    /* Texto animado en cada slide */
+    .slide-text {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 1.8rem;
+      color: #fff;
+      opacity: 0;
+      animation: fadeInUp 1s forwards;
+    }
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
     /* Estilos para el carrito en el modal */
     .cart-item {
@@ -302,18 +325,19 @@
       <button class="btn-agregar" onclick="document.getElementById('informacion').scrollIntoView({ behavior: 'smooth' });">
         Información
       </button>
-      <button class="btn-agregar" onclick="mostrarInfoTransferencia()">transferencia</button>
+      <button class="btn-agregar" onclick="mostrarInfoTransferencia()">Transferencia</button>
     </nav>
   </header>
   <!-- Contenedor principal -->
   <div class="contenedor">
+    <!-- Sección Slider -->
     <section class="slider">
       <div class="slider-container" id="slider-container">
-        <!-- Slides se generarán dinámicamente -->
+        <!-- Se generarán dinámicamente con el JSON -->
       </div>
     </section>
-    <section class="informacion" style="text-align: center ;">
-     <h1>MENU</h1>
+    <section class="informacion" style="text-align: center;">
+      <h1>MENU</h1>
     </section>
     <!-- Sección Categorías -->
     <section class="categorias" id="categorias">
@@ -323,12 +347,8 @@
       <h3>Información Adicional</h3>
       <p>Bienvenido a nuestro Restaurante Virtual. Aquí encontrarás información sobre nuestros servicios, horarios y promociones.</p>
       <p>Para más detalles, contáctanos en: <a href="mailto: andymallely@gmail.com">andymallely@gmail.com</a></p>
-
-
-     <p>Le ofrecemos atención personalizada desde <a>las 6:00 p.m. hasta las 10:00 p.m.</a></p>
-      
-       <p>visítanos en <a>Fraccionamiento capistrano calle: Oriente Numero: 22</a></p>
-
+      <p>Le ofrecemos atención personalizada desde <a>las 6:00 p.m. hasta las 10:00 p.m.</a></p>
+      <p>Visítanos en <a>Fraccionamiento Capistrano, Calle Oriente Número: 22</a></p>
       <p>Síguenos en nuestras redes sociales:</p>
       <p>
         <a href="https://www.facebook.com/share/1EQS6NyTqV/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a> |
@@ -337,13 +357,12 @@
       </p>
     </section>
     <!-- Footer -->
-<footer class="footer" id="footer">
-  © 2025 IAEgo. (Andry) Todos los derechos reservados. <br>
-  <a href="https://wa.me/9382502171" target="_blank" style="color: var(--color-footer-text); text-decoration: none;">
-    <i class="fab fa-whatsapp"></i> Contacta al programador
-  </a>
-</footer>
-
+    <footer class="footer" id="footer">
+      © 2025 IAEgo. (Andry) Todos los derechos reservados. <br>
+      <a href="https://wa.me/9382502171" target="_blank" style="color: var(--color-footer-text); text-decoration: none;">
+        <i class="fab fa-whatsapp"></i> Contacta al programador
+      </a>
+    </footer>
   </div>
 
   <script>
@@ -383,16 +402,21 @@
       }
     }
 
+    // JSON de imágenes del slider con texto
     const sliderImages = [
-      { src: "https://res.cloudinary.com/dedltkiwa/image/upload/v1743617460/IMG-20250402-WA0001_tdynwm.jpg", alt: "Deliciosa pizza 1" },
-      { src: "https://res.cloudinary.com/dpnm1c0zx/image/upload/v1743618012/FB_IMG_1743617549486_jlxtqf.jpg", alt: "Deliciosa pizza 2" },
-      { src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80", alt: "Deliciosa pizza 3" }
+      { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjg7-c9bB9xsNkBJuWQtP__1QFzacQ9vrfbSRZ-i1rrly7ORi-XjgEiFo&s=10", alt: "Deliciosa pizza 1", text: "¡Bienvenido!" },
+      { src: "https://res.cloudinary.com/dpnm1c0zx/image/upload/v1743618012/FB_IMG_1743617549486_jlxtqf.jpg", alt: "Deliciosa pizza 2", text: "Disfruta de nuestras pizzas" },
+      { src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80", alt: "Deliciosa pizza 3", text: "Sabor y tradición" }
     ];
 
     const sliderContainer = document.getElementById("slider-container");
-    // Generar dinámicamente cada slide a partir del JSON
+    // Genera dinámicamente cada slide a partir del JSON
     sliderContainer.innerHTML = sliderImages.length 
-      ? sliderImages.map(img => `<div class="slide"><img src="${img.src}" alt="${img.alt}"></div>`).join('')
+      ? sliderImages.map(img => `
+          <div class="slide">
+            <img src="${img.src}" alt="${img.alt}">
+            <div class="slide-text">${img.text}</div>
+          </div>`).join('')
       : `<div class="slide"><p>No hay imágenes disponibles</p></div>`;
 
     let currentIndex = 0;
@@ -410,6 +434,31 @@
     // Slider automático cada 5 segundos
     setInterval(() => showSlide(currentIndex + 1), 5000);
 
+    // Eventos touch para controlar el slider con el dedo
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const slider = document.querySelector('.slider');
+
+    slider.addEventListener('touchstart', function(event) {
+      touchStartX = event.changedTouches[0].screenX;
+    }, false);
+
+    slider.addEventListener('touchend', function(event) {
+      touchEndX = event.changedTouches[0].screenX;
+      handleGesture();
+    }, false);
+
+    function handleGesture() {
+      const swipeDistance = touchEndX - touchStartX;
+      if (swipeDistance < -50) {
+        // Swipe hacia la izquierda: siguiente slide
+        showSlide(currentIndex + 1);
+      } else if (swipeDistance > 50) {
+        // Swipe hacia la derecha: slide anterior
+        showSlide(currentIndex - 1);
+      }
+    }
+
     // Genera HTML para cada categoría
     function generarCategoriasHTML(categorias) {
       const contenedorCategorias = document.getElementById("categorias");
@@ -422,7 +471,6 @@
         categoriaHTML.appendChild(titulo);
         const menuItem = document.createElement("div");
         menuItem.classList.add("menu-item");
-        // Se asigna el id de la categoría de forma normal
         menuItem.id = categoria;
         categoriaHTML.appendChild(menuItem);
         contenedorCategorias.appendChild(categoriaHTML);
@@ -523,7 +571,7 @@
         <form id="orderForm" onsubmit="event.preventDefault(); enviarPedidoFinal();">
           <div class="form-group">
             <label for="direccion">Dirección de envío:</label>
-            <input type="text" id="direccion" value="${direccionGuardada}"placeholder="La dirección se guardará"  required>
+            <input type="text" id="direccion" value="${direccionGuardada}" placeholder="La dirección se guardará" required>
           </div>
           <div class="form-group">
             <label for="notaPedido">Nota adicional (opcional):</label>
@@ -534,7 +582,7 @@
       `;
     }
 
-    // Función para mostrar la información de pagos con transferencia en el modal
+    // Muestra información de pagos con transferencia en el modal
     function mostrarInfoTransferencia() {
       openModal();
       document.getElementById('modalBody').innerHTML = `
