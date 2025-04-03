@@ -21,7 +21,8 @@
       --color-scrollbar: #FF4500;
     }
     /* Reset y configuración base */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
       font-family: 'Roboto', sans-serif;
       background: var(--color-fondo);
@@ -83,10 +84,12 @@
     }
     /* Sección Categorías: Grid de dos columnas */
     .categorias {
+     margin: auto;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
-      padding: 1rem;
+      
+      
     }
     .categoria {
       background: #fafafa;
@@ -94,7 +97,7 @@
       padding: 0.5rem;
       display: flex;
       flex-direction: column;
-      height: 250px;
+      height: 200px;
     }
     .categoria h2 {
       text-align: center;
