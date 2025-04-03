@@ -202,7 +202,7 @@
       position: relative;
       overflow: hidden;
       max-width: 100%;
-      margin: 2rem auto;
+      margin: 1rem auto;
     }
     .slider-container {
       display: flex;
@@ -311,6 +311,9 @@
       <div class="slider-container" id="slider-container">
         <!-- Slides se generarán dinámicamente -->
       </div>
+    </section>
+    <section class="informacion" style="text-align: center ;">
+     <h1>MENU</h1>
     </section>
     <!-- Sección Categorías -->
     <section class="categorias" id="categorias">
@@ -459,7 +462,7 @@
           <p><strong>Descripción:</strong> ${producto.descripcion}</p>
           <div class="form-group">
             <label for="notaProducto">Nota para este producto (opcional):</label>
-            <input type="text" id="notaProducto" placeholder="Ej: sin seboya">
+            <input type="text" id="notaProducto" placeholder="Ej: sin algún ingrediente">
           </div>
           <button class="btn-agregar" onclick="agregarProductoDesdeModal(${producto.id})">Agregar al Carrito</button>
         `;
@@ -520,7 +523,7 @@
         <form id="orderForm" onsubmit="event.preventDefault(); enviarPedidoFinal();">
           <div class="form-group">
             <label for="direccion">Dirección de envío:</label>
-            <input type="text" id="direccion" value="${direccionGuardada}" required>
+            <input type="text" id="direccion" value="${direccionGuardada}"placeholder="La dirección se guardará"  required>
           </div>
           <div class="form-group">
             <label for="notaPedido">Nota adicional (opcional):</label>
@@ -559,7 +562,7 @@
         mensaje += `%0ADirección de envío: ${direccion}%0A`;
         mensaje += document.getElementById("notaPedido").value.trim() ? `%0ANota: ${document.getElementById("notaPedido").value.trim()}%0A` : "";
         closeModal();
-        window.open(`https://wa.me/9382502171?text=${mensaje}`, "_blank");
+        window.open(`https://wa.me/9381844237?text=${mensaje}`, "_blank");
       }
     }
 
