@@ -21,7 +21,9 @@
       --color-scrollbar: #FF4500;
     }
     /* Reset y configuración base */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; 
+ 
+}
 
     body {
       font-family: 'Roboto', sans-serif;
@@ -84,11 +86,11 @@
     }
     /* Sección Categorías: Grid de dos columnas */
     .categorias {
-     margin: auto;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+      width: 100%;
+      padding: 1rem;
       
     }
     .categoria {
@@ -104,12 +106,14 @@
       color: var(--color-principal);
       font-size: 15px;
       margin-bottom: 0.5rem;
+      white-space: normal;
     }
     .menu-item {
       flex-grow: 1;
       overflow-y: auto;
       padding: 0 0.5rem;
     }
+    
     .menu-item::-webkit-scrollbar { width: 6px; }
     .menu-item::-webkit-scrollbar-thumb {
       background: var(--color-scrollbar);
