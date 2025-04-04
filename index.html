@@ -9,21 +9,24 @@
   <!-- CDN Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* Variables de color en raíz */
+    /* Variables de color actualizadas para un estilo suave y elegante */
     :root {
-      --color-fondo: #f4f4f4;
-      --color-texto: #333;
-      --color-principal: #FF4500;
-      --color-secundario: #fff;
+      --color-fondo: #f7f7f7;
+      --color-texto: #444;
+      --color-principal: #FF6F61; /* tono pastel y cálido */
+      --color-secundario: #ffffff;
       --color-footer: #333;
       --color-footer-text: #fff;
-      --color-hover: rgba(255, 69, 0, 0.1);
-      --color-scrollbar: #FF4500;
+      --color-hover: rgba(255, 111, 97, 0.15);
+      --color-scrollbar: #FF6F61;
     }
+
     /* Reset y configuración base */
-* { margin: 0; padding: 0; box-sizing: border-box; 
- 
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: 'Roboto', sans-serif;
@@ -33,20 +36,22 @@
       line-height: 1.6;
       padding-top: 80px;
     }
-    /* Contenedor principal */
+
+    /* Contenedor principal con sombra suave y bordes redondeados */
     .contenedor {
       max-width: 1200px;
       margin: 2rem auto;
       background: var(--color-secundario);
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       overflow: hidden;
       position: relative;
       padding-bottom: 2rem;
     }
-    /* Header sticky con logo */
+
+    /* Header sticky con logo y fondo semitransparente */
     .contenedor-header {
-      background: var(--color-principal);
+      background: rgba(255, 255, 255, 0.95);
       height: 80px;
       display: flex;
       align-items: center;
@@ -57,41 +62,67 @@
       left: 0;
       right: 0;
       z-index: 100;
+      border-bottom: 1px solid #ddd;
     }
+
     .logo {
-      height: 110px;
+      background: #000000;
+      height: 50px;
+      width: 50px;
       margin-right: 1rem;
-      border-radius: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
+
     header nav {
       display: flex;
-      justify-content: center;
-      gap: 2rem;
+      gap: 1rem;
       background: var(--color-secundario);
-      padding: 1rem 0;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
-    header nav button {
+
+    /* Botón de carrito con transiciones suaves */
+    .btn-carrito {
       background: var(--color-principal);
-      color: var(--color-secundario);
+      color: #ffffff;             
+      border: none;    
+      padding: 10px 15px;        
+      font-size: 16px;            
+      border-radius: 8px;         
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
+      transition: box-shadow 0.3s ease, transform 0.3s ease; 
+    }
+
+    header nav button {
+      background: #ffffff;
+      color: var(--color-texto);
       border: none;
       padding: 0.5rem 1rem;
       cursor: pointer;
       font-size: 0.9em;
-      border-radius: 5px;
-      transition: background 0.3s ease;
+      border-radius: 8px;
+      transition: background 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
+
     header nav button:hover {
-      background: #e03e00;
+      background: var(--color-principal);
+      color: #fff;
+      transform: translateY(-2px);
     }
-    /* Sección Categorías: Grid de dos columnas */
+
+    /* Sección Categorías: Grid responsivo y elegante */
     .categorias {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 10px;
+      gap: 1rem;
       width: 100%;
-      padding: 10px;
-      
+      padding: 1rem;
     }
     .categoria {
       background: #fafafa;
@@ -113,48 +144,72 @@
       overflow-y: auto;
       padding: 0 0.5rem;
     }
-    
-    .menu-item::-webkit-scrollbar { width: 6px; }
+
+    .menu-item::-webkit-scrollbar {
+      width: 2px;
+    }
+
     .menu-item::-webkit-scrollbar-thumb {
       background: var(--color-scrollbar);
       border-radius: 3px;
     }
+
     .productos {
       display: flex;
       justify-content: space-between;
-      padding: 5px 0;
-      border-bottom: 1px solid var(--color-principal);
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
       cursor: pointer;
       transition: background 0.3s ease;
+      overflow: auto;
     }
-    .productos:hover { background: var(--color-hover); }
-    .productos .item-name { font-size: 12px; }
+
+    .productos:hover {
+      background: var(--color-hover);
+    }
+
+    .productos .item-name {
+      font-size: 13px;
+      flex: 1;
+      margin-left: 8px;
+    }
+
     .productos .item-price {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: bold;
       color: var(--color-principal);
     }
+
     .btn-agregar {
       background: var(--color-principal);
       color: var(--color-secundario);
       border: none;
-      padding: 0.3rem 0.6rem;
+      padding: 0.4rem 0.8rem;
       cursor: pointer;
-      font-size: 12px;
-      border-radius: 5px;
+      font-size: 13px;
+      border-radius: 6px;
+      transition: background 0.3s ease, transform 0.3s ease;
     }
-    /* Modal reutilizable */
+
+    .btn-agregar:hover {
+      background: #e85c54;
+      transform: scale(1.02);
+    }
+
+    /* Modal reutilizable con bordes redondeados y sombra suave */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(5px);
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
       display: none;
       justify-content: center;
       align-items: center;
       z-index: 1000;
       padding: 1rem;
     }
+
     .modal-content {
       background: var(--color-secundario);
       padding: 2rem;
@@ -165,11 +220,16 @@
       transform: scale(0.8);
       opacity: 0;
       transition: all 0.3s ease;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
       max-height: 90vh;
       overflow-y: auto;
     }
-    .modal-active { transform: scale(1); opacity: 1; }
+
+    .modal-active {
+      transform: scale(1);
+      opacity: 1;
+    }
+
     .close-btn {
       position: absolute;
       top: 1rem;
@@ -180,52 +240,65 @@
       cursor: pointer;
       color: var(--color-principal);
     }
-    /* Footer */
+
+    /* Footer minimalista */
     .footer {
       background-color: var(--color-footer);
       color: var(--color-footer-text);
       text-align: center;
-      padding: 0.5rem;
+      padding: 0.8rem;
       font-size: 0.8rem;
     }
+
     /* Estilos para formularios */
     .form-group {
       margin-bottom: 1rem;
     }
+
     .form-group label {
       display: block;
       margin-bottom: 0.3rem;
       font-weight: bold;
     }
+
     .form-group input, 
     .form-group textarea {
       width: 100%;
-      padding: 0.5rem;
+      padding: 0.6rem;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-size: 14px;
     }
-    /* Slider Moderno sin botones */
+
+    /* Slider moderno sin botones y con animación sutil */
     .slider {
       position: relative;
       overflow: hidden;
       max-width: 100%;
       margin: 1rem auto;
       touch-action: pan-y;
+      border-radius: 15px;
     }
+
     .slider-container {
       display: flex;
       transition: transform 0.5s ease-in-out;
     }
+
     .slide {
       position: relative;
       min-width: 100%;
       box-sizing: border-box;
     }
+
     .slide img {
       width: 100%;
       height: 100%;
       display: block;
+      object-fit: cover;
+      border-radius: 15px;
     }
+
     /* Texto animado en cada slide */
     .slide-text {
       position: absolute;
@@ -235,7 +308,9 @@
       color: #fff;
       opacity: 0;
       animation: fadeInUp 1s forwards;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
+
     @keyframes fadeInUp {
       from {
         transform: translateY(20px);
@@ -246,68 +321,107 @@
         opacity: 1;
       }
     }
+
     /* Estilos para el carrito en el modal */
     .cart-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.5rem 0;
+      padding: 0.6rem 0;
       border-bottom: 1px solid #eee;
     }
+
     .cart-item p {
       margin: 0;
       font-size: 14px;
     }
+
     .cart-item button {
       background: #d9534f;
       border: none;
       color: #fff;
-      padding: 0.2rem 0.5rem;
-      border-radius: 3px;
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
       cursor: pointer;
       font-size: 12px;
+      transition: background 0.3s ease;
     }
-    #btnCarrito {
-      color: #fff;
-      border: 1px solid #fff;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      font-weight: bold;
-      font-size: 0.7em;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+
+    .cart-item button:hover {
+      background: #c9302c;
     }
-    #btnCarrito:hover {
-      background-color: #e03e00;
-      transform: scale(1.05);
-    }
+
     .cart-total {
       text-align: right;
       font-weight: bold;
       margin-top: 1rem;
     }
-    /* Nueva sección de Información Adicional */
+
+    /* Sección de Información Adicional */
     .informacion {
-      background: #eee;
-      padding: 1rem;
+      background: #f0f0f0;
+      padding: 1.5rem;
       margin: 1rem;
-      border-radius: 10px;
-      font-size: 0.9em;
+      border-radius: 12px;
+      font-size: 0.95em;
       color: #555;
     }
+
     .informacion h3 {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.8rem;
       color: var(--color-principal);
     }
+
     .informacion p {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
     }
+
     .informacion a {
       color: var(--color-principal);
       text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .informacion a:hover {
+      color: #e85c54;
+    }
+
+    /* Estilos para notificaciones */
+    .notificacion {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--color-principal);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 2000;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+      font-size: 14px;
+    }
+    .notificacion.mostrar {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .notificacion.error {
+      background: #d9534f;
+    }
+    .notificacion.exito {
+      background: #28a745;
     }
   </style>
 </head>
 <body>
+  <!-- Contenedor de notificaciones (opcional si se quiere gestionar varios mensajes) -->
+  <div id="notification-container"></div>
+  <!-- Notificación individual -->
+  <div id="notificacion" class="notificacion"></div>
+
   <!-- Modal reutilizable -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal-content" id="modalContent">
@@ -315,24 +429,25 @@
       <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
+
   <!-- Encabezado sticky con logo y botón de carrito -->
   <header>
     <div class="contenedor-header">
       <div style="display: flex; align-items: center;">
-        <img src="https://res.cloudinary.com/dedltkiwa/image/upload/v1743604402/Photoroom-20250304_005432_dee5ms.png" alt="Logo" class="logo">
+        <img src="https://res.cloudinary.com/dedltkiwa/image/upload/v1743806565/Carb%C3%B3n_y_Beige_Simple_y_Circular_Evento_de_Ajedrez_Logo_20250404_163150_0000_2_kte7qe.png" alt="Logo" class="logo">
       </div>
-      <button class="btn-agregar" id="btnCarrito" onclick="mostrarCarritoModal()">
+      <button class="btn-carrito" id="btnCarrito" onclick="mostrarCarritoModal()">
         Carrito (0 piezas - $0.00)
       </button>
     </div>
     <nav>
-      <button class="btn-agregar" onclick="document.getElementById('categorias').scrollIntoView({ behavior: 'smooth' });">
+      <button onclick="document.getElementById('categorias').scrollIntoView({ behavior: 'smooth' });">
         Categorías
       </button>
-      <button class="btn-agregar" onclick="document.getElementById('informacion').scrollIntoView({ behavior: 'smooth' });">
+      <button onclick="document.getElementById('informacion').scrollIntoView({ behavior: 'smooth' });">
         Información
       </button>
-      <button class="btn-agregar" onclick="mostrarInfoTransferencia()">Transferencia</button>
+      <button onclick="mostrarInfoTransferencia()">Transferencia</button>
     </nav>
   </header>
   <!-- Contenedor principal -->
@@ -373,6 +488,16 @@
   </div>
 
   <script>
+    // Función para mostrar notificaciones
+    function mostrarNotificacion(mensaje, tipo = 'exito') {
+      const noti = document.getElementById("notificacion");
+      noti.textContent = mensaje;
+      noti.className = `notificacion mostrar ${tipo}`;
+      setTimeout(() => {
+        noti.classList.remove("mostrar");
+      }, 3000);
+    }
+
     // Funciones de almacenamiento local
     const LS = {
       get: key => JSON.parse(localStorage.getItem(key)),
@@ -411,9 +536,9 @@
 
     // JSON de imágenes del slider con texto
     const sliderImages = [
-      { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjg7-c9bB9xsNkBJuWQtP__1QFzacQ9vrfbSRZ-i1rrly7ORi-XjgEiFo&s=10", alt: "Deliciosa pizza 1", text: "¡Bienvenido!" },
+      { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5Py4lvQPfff72mSmob1N_Yp1jvBfZybFJuGbcuujFpciSObExFDmmTiM&s=10", alt: "Deliciosa pizza 1", text: "¡Bienvenido!" },
       { src: "https://res.cloudinary.com/dpnm1c0zx/image/upload/v1743618012/FB_IMG_1743617549486_jlxtqf.jpg", alt: "Deliciosa pizza 2", text: "Disfruta de nuestras pizzas" },
-      { src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80", alt: "Deliciosa pizza 3", text: "Sabor y tradición" }
+      { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-dUUhLhoc_M5AD1l-q1YHyh2J6pEfWb42vZAfssr_S7iJXQWgi4OJM0Ak&s=10", alt: "Deliciosa pizza 3", text: "Sabor y tradición" }
     ];
 
     const sliderContainer = document.getElementById("slider-container");
@@ -496,7 +621,7 @@
           productoDiv.classList.add("productos");
           productoDiv.onclick = () => info(producto.id);
           productoDiv.innerHTML = `
-            <img src="${producto.imagen}" alt="${producto.nombre}" style="width:30px; height:auto; margin-right:8px;">
+            <img src="${producto.imagen}" alt="${producto.nombre}" style="width:30px;border-radius: 8px;  height:auto; margin-right:8px;  ">
             <span class="item-name">${producto.nombre}</span>
             <span class="item-price">$${precio.toFixed(1)}</span>
           `;
@@ -522,7 +647,7 @@
           <button class="btn-agregar" onclick="agregarProductoDesdeModal(${producto.id})">Agregar al Carrito</button>
         `;
       } else {
-        alert("Producto no encontrado.");
+        mostrarNotificacion("Producto no encontrado.", "error");
       }
     }
 
@@ -532,11 +657,11 @@
       const producto = data.productos.find(prod => prod.id === productoId);
       if (producto) {
         carrito.push({ id: producto.id, nombre: producto.nombre, precio: producto.precio, peticion: nota });
-        alert(`${producto.nombre} se agregó al carrito.`);
+        mostrarNotificacion(`${producto.nombre} se agregó al carrito.`, "exito");
         actualizarBotonCarrito();
         closeModal();
       } else {
-        alert("Producto no encontrado.");
+        mostrarNotificacion("Producto no encontrado.", "error");
       }
     }
 
@@ -565,9 +690,11 @@
 
     // Elimina un producto del carrito
     const eliminarProducto = index => {
+      const nombreEliminado = carrito[index].nombre;
       carrito.splice(index, 1);
       actualizarBotonCarrito();
       mostrarCarritoModal();
+      mostrarNotificacion(`${nombreEliminado} eliminado del carrito.`, "error");
     };
 
     // Muestra el formulario de pedido en el modal
@@ -607,7 +734,7 @@
     function enviarPedidoFinal() {
       const direccion = document.getElementById("direccion").value.trim();
       if (!direccion) {
-        alert("La dirección es obligatoria.");
+        mostrarNotificacion("La dirección es obligatoria.", "error");
       } else {
         LS.set("direccionEnvio", direccion);
         let mensaje = "¡Hola! Quiero realizar el siguiente pedido:%0A";
